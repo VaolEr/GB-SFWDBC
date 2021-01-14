@@ -38,7 +38,7 @@ public class Cart {
     public String toString() {
         StringBuilder stringBuilder = new StringBuilder();
         for (Product p:cartProducts) {
-            stringBuilder.append(String.format("{Product: id:%d, name:%s, cost:%f};",p.getId(),p.getName(),p.getCost()));
+            stringBuilder.append(String.format("{Product: id: %d, name: %s, cost: %f};\n",p.getId(),p.getName(),p.getCost()));
         }
         return stringBuilder.toString();
     }
