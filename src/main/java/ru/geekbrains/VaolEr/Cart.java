@@ -36,10 +36,16 @@ public class Cart {
 
     @Override
     public String toString() {
-        StringBuilder stringBuilder = new StringBuilder();
-        for (Product p:cartProducts) {
-            stringBuilder.append(String.format("{Product: id: %d, name: %s, cost: %f};\n",p.getId(),p.getName(),p.getCost()));
+        if(cartProducts.size() > 0) {
+            StringBuilder stringBuilder = new StringBuilder();
+            for (Product p : cartProducts) {
+                stringBuilder.append(String.format("{Product: id: %d, name: %s, cost: %f};\n",
+                                                   p.getId(), p.getName(), p.getCost()));
+            }
+            return stringBuilder.toString();
         }
-        return stringBuilder.toString();
+        else{
+            return "Cart is empty!";
+        }
     }
 }

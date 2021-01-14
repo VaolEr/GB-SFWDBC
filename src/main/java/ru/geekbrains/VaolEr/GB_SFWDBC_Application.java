@@ -73,7 +73,7 @@ public class GB_SFWDBC_Application {
                 int gotId;
                 switch (command) {
                     case CLEAN_COMMAND:
-                        for (int i = cart.cartProducts.size(); i > 0; i--) {
+                        for (int i = cart.cartProducts.size()-1; i > -1; i--) {
                             cart.cartProducts.remove(i);
                         }
                         break;
