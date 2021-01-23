@@ -11,9 +11,17 @@ import ru.geekbrains.VaolEr.model.abstractentity.AbstractNamedEntity;
 @Setter
 @NoArgsConstructor
 @EqualsAndHashCode(callSuper = true)
-public class Product extends AbstractNamedEntity {
+public class Product extends AbstractNamedEntity implements Comparable<Product> {
 
     @NotNull
     public Double cost;
 
+    @Override
+    public int compareTo(Product o) {
+        int result = this.name.compareTo(o.name);
+        if(result == 0){
+            result = this.cost.compareTo(o.cost);
+        }
+        return result;
+    }
 }

@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+  <meta charset="UTF-8">
+  <title>Products Page</title>
+</head>
+<body>
+  <h3>List of all products</h3>
+    <table>
+        <thead>
+        <tr>
+          <th> Name </th>
+          <th> Cost </th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:if="${products.empty}">
+          <td colspan="2"> No Products Available </td>
+        </tr>
+        <tr th:each="product : ${products}">
+          <td><span th:text="${product.name}"> Name </span></td>
+          <td><span th:text="${product.cost}"> Cost </span></td>
+        </tr>
+        </tbody>
+    </table>
+</body>
+</html>
