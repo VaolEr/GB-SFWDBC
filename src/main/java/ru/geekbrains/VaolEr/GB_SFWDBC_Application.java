@@ -1,7 +1,13 @@
 package ru.geekbrains.VaolEr;
 
+import org.hibernate.cfg.Configuration;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import ru.geekbrains.VaolEr.dao.ProductDAO;
+import ru.geekbrains.VaolEr.model.Product;
+
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
 
 @SpringBootApplication
 public class GB_SFWDBC_Application {
@@ -16,10 +22,56 @@ public class GB_SFWDBC_Application {
 
     public static void main(String[] args) {
         SpringApplication.run(GB_SFWDBC_Application.class, args);
-//        Product product1 = new Product();
-//        product1.setId(0);
-//        product1.setName("Prod1");
-//        product1.setCost(22.50);
+
+        EntityManagerFactory factory = new Configuration()
+                .configure("hibernate.xml")
+                .buildSessionFactory();
+
+        EntityManager entityManager = factory.createEntityManager();
+
+        Product product1 = new Product();
+        product1.setName("Prod1");
+        product1.setCost(22.50);
+
+        Product product2 = new Product();
+        product2.setName("Prod2");
+        product2.setCost(48.50);
+
+        Product product3 = new Product();
+        product3.setName("Prod3");
+        product3.setCost(36.50);
+
+        System.out.println("Add data to DB");
+        ProductDAO.create(entityManager, product1);
+        ProductDAO.create(entityManager, product2);
+        ProductDAO.create(entityManager, product3);
+
+        //If when create product id is not null, then will be exception
+        product1.setId(4L);
+        product2.setId(5L);
+        product3.setId(6L); //6 because I tested in db, and autoincrement works
+
+        System.out.println("");
+        ProductDAO.findAll(entityManager).forEach(product -> System.out.println(product.toString()));
+        System.out.println("");
+        System.out.println("");
+        System.out.println("Delete product 3");
+
+        ProductDAO.delete(entityManager, product3);
+        System.out.println("");
+        ProductDAO.findAll(entityManager).forEach(product -> System.out.println(product.toString()));
+
+        product1.setCost(100.0);
+        product2.setName("New Product2 name");
+        System.out.println("");
+        System.out.println("");
+        System.out.println("Change cost on product 1 and name on product 2");
+        ProductDAO.saveOrUpdate(entityManager, product1);
+        ProductDAO.saveOrUpdate(entityManager, product2);
+
+        ProductDAO.findAll(entityManager).forEach(product -> System.out.println(product.toString()));
+
+
 //        ProductRepository.products.put(product1.getId(), product1);
 //
 //        Product product2 = new Product();
