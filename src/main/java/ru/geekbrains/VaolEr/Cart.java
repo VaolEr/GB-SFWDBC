@@ -1,29 +1,28 @@
 package ru.geekbrains.VaolEr;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import org.springframework.stereotype.Controller;
 import ru.geekbrains.VaolEr.model.Product;
-import ru.geekbrains.VaolEr.repository.ProductRepository;
+import ru.geekbrains.VaolEr.service.ProductsService;
 
 @Controller
 public class Cart {
 
-    private final ProductRepository productRepository;
+    private final ProductsService productsService;
 
-    public Cart(ProductRepository productRepository) {
-        this.productRepository = productRepository;
+    public Cart(ProductsService productsService) {
+        this.productsService = productsService;
     }
 
     List<Product> cartProducts = new ArrayList<>();
 
     public void addAllProductsToCart(){
-        cartProducts.addAll(productRepository.getAllProducts());
+        cartProducts.addAll(productsService.getAllProducts());
     }
 
     public void addProductToCart(Integer productId){
-        cartProducts.add(productRepository.getProductById(productId));
+        cartProducts.add(productsService.getProductById(productId));
     }
 
     public void deleteProductFromCart(Integer productId){

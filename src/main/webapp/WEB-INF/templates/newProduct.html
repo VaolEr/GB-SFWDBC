@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+  <meta charset="UTF-8">
+  <title>Add new product</title>
+</head>
+<body>
+  <form th:method="POST" th:action="@{/api/v1/products}" th:object="${product}">
+  <label for="name" >Enter product name</label>
+  <input type="text" th:field="*{name}" id="name"/>
+  <label for="cost" >Enter product cost</label>
+  <input type="number" step="0.01" th:field="*{cost}" id="cost"/>
+  <br/>
+  <input type="submit" value="Add new product">
+  </form>
+</body>
+</html>

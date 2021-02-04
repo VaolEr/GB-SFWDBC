@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+  <meta charset="UTF-8">
+  <title>Product page</title>
+</head>
+<body>
+  <table>
+      <thead>
+      <tr>
+        <th> Name </th>
+        <th> Cost </th>
+      </tr>
+      </thead>
+      <tbody>
+       <tr th:if="${product == null}">
+        <td colspan="2"> There is no such product </td>
+      </tr>
+      <tr th:each="product : ${product}">
+        <td><span th:text="${product.name}"> Name </span></td>
+        <td><span th:text="${product.cost}"> Cost </span></td>
+      </tr>
+      </tbody>
+  </table>
+</body>
+</html>
