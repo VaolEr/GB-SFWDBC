@@ -40,5 +40,7 @@
         </property>
 
         <mapping class = "ru.geekbrains.VaolEr.model.Product"/>
+        <mapping class = "ru.geekbrains.VaolEr.model.Cart"/>
+        <mapping class = "ru.geekbrains.VaolEr.model.Buyer"/>
     </session-factory>
 </hibernate-configuration>

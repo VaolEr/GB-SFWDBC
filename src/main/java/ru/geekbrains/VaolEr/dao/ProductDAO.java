@@ -1,22 +1,34 @@
 package ru.geekbrains.VaolEr.dao;
 
 
+import org.springframework.stereotype.Repository;
+import ru.geekbrains.VaolEr.config.EntityManagerConfig;
+import ru.geekbrains.VaolEr.model.Buyer;
 import ru.geekbrains.VaolEr.model.Product;
 
 
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
+import javax.persistence.TypedQuery;
 import java.util.List;
 
+@Repository
 public class ProductDAO {
 
+    private final EntityManagerConfig entityManagerConfig;
+    private EntityManager entityManager;
 
-    public static boolean create(EntityManager entityManager, Product product){
+    public ProductDAO(EntityManagerConfig entityManagerConfig) {
+        this.entityManagerConfig = entityManagerConfig;
+        this.entityManager = this.entityManagerConfig.getEntityManager();
+    }
+
+    public boolean create( Product product){
         try{
             //Create
-            entityManager.getTransaction().begin();
-            entityManager.persist(product);
-            entityManager.getTransaction().commit();
+            this.entityManager.getTransaction().begin();
+            this.entityManager.persist(product);
+            this.entityManager.getTransaction().commit();
             return true;
         } catch (Exception e){
             e.printStackTrace();
@@ -24,50 +36,58 @@ public class ProductDAO {
         }
     }
 
-     public static Product findById(EntityManager entityManager, Long id){
+     public Product findById(Long id){
         //Read
         //entityManager.getTransaction().begin();
-        return entityManager.find(Product.class, id);
+        return this.entityManager.find(Product.class, id);
     }
 
 
-    public static List<Product> findAll(EntityManager entityManager){
-        entityManager.getTransaction().begin();
-        List<Product> list = (List<Product>) entityManager.createQuery("SELECT p from Product p")
+    public List<Product> findAll(){
+        this.entityManager.getTransaction().begin();
+        List<Product> list = (List<Product>) this.entityManager.createQuery("SELECT p from Product p")
                 .getResultList();
-        entityManager.getTransaction().commit();
+        this.entityManager.getTransaction().commit();
         return list;
     }
 
-    public static Product saveOrUpdate(EntityManager entityManager, Product product) {
+    public Product saveOrUpdate(Product product) {
         //Update
-        entityManager.getTransaction().begin();
-        Product productFromDb = findById(entityManager, product.getId());
+        this.entityManager.getTransaction().begin();
+        Product productFromDb = findById(product.getId());
         productFromDb.setName(product.getName());
         productFromDb.setCost(product.getCost());
-        entityManager.merge(productFromDb);
-        entityManager.getTransaction().commit();
-        return findById(entityManager, product.getId());
+        this.entityManager.merge(productFromDb);
+        this.entityManager.getTransaction().commit();
+        return findById(product.getId());
     }
 
-    public static boolean delete(EntityManager entityManager, Product product){
+    public boolean delete(Product product){
         try {
-            entityManager.getTransaction().begin();
-            Product productFromDb = findById(entityManager, product.getId());
+            this.entityManager.getTransaction().begin();
+            Product productFromDb = findById(product.getId());
             if(productFromDb.equals(null)){
                 System.out.println("There is no product with id: " + product.getId());
                 return false;
             } else {
-                Query query = entityManager.createQuery("DELETE FROM Product p WHERE p.id = ?1");
+                Query query = this.entityManager.createQuery("DELETE FROM Product p WHERE p.id = ?1");
                 query.setParameter(1, productFromDb.getId()).executeUpdate();
-                entityManager.getTransaction().commit();
+                this.entityManager.getTransaction().commit();
                 return true;
             }
         }catch (Exception e){
             e.printStackTrace();
-            entityManager.getTransaction().commit();
+            this.entityManager.getTransaction().commit();
             return false;
         }
 
+    }
+
+    public List<Buyer> findAllProductBuyersByProductId(Long productId){
+        TypedQuery<Buyer> query = entityManager.createQuery("select b from Buyer b INNER JOIN Cart c ON (b.id =  c.buyer.id) WHERE c.product.id = ?1 group by b.id", Buyer.class);
+        this.entityManager.getTransaction().begin();
+        List<Buyer> list = query.setParameter(1, productId).getResultList();
+        this.entityManager.getTransaction().commit();
+        return list;
     }
 }

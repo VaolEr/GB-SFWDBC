@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import ru.geekbrains.VaolEr.dao.ProductDAO;
 import ru.geekbrains.VaolEr.model.Product;
 import ru.geekbrains.VaolEr.repository.ProductsRepository;
 import ru.geekbrains.VaolEr.service.ProductsService;
@@ -22,6 +23,7 @@ import ru.geekbrains.VaolEr.service.ProductsService;
 public class ProductsController {
 
     private final ProductsService productsService;
+    private final ProductDAO productDAO;
 
     @GetMapping
     //@Operation(summary = "Get all products or list of items where product name contains [name]")

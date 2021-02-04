@@ -2,3 +2,11 @@ databaseChangeLog:
   # DB schema initialization
   - include:
       file: db/changelog/shema/2021-01-14-create_products_table.sql
+
+  # Create buyers and carts tables
+  - include:
+      file: db/changelog/shema/2021-02-02-create- buyers-and-carts-tables.sql
+
+  # Add data to tables
+  - include:
+      file: db/changelog/data/2021-02-04-add-data-to-tables.sql
