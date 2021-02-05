@@ -23,7 +23,6 @@ import ru.geekbrains.VaolEr.service.ProductsService;
 public class ProductsController {
 
     private final ProductsService productsService;
-    private final ProductDAO productDAO;
 
     @GetMapping
     //@Operation(summary = "Get all products or list of items where product name contains [name]")
