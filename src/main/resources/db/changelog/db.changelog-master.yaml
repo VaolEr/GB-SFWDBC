@@ -10,3 +10,7 @@ databaseChangeLog:
   # Add data to tables
   - include:
       file: db/changelog/data/2021-02-04-add-data-to-tables.sql
+
+  # Add 20 products to products tables
+  - include:
+      file: db/changelog/data/2021-02-05-add-20-products-entities-to-products.sql
