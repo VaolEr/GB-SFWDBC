@@ -19,5 +19,18 @@ public interface ProductsRepository extends JpaRepository<Product, Long> {
 
     List<Product> findByNameContaining(String name);
 
+    List<Product> findByNameContainingAndCostGreaterThan(String name, Double minCost);
+
+    List<Product> findAllByCostGreaterThan(Double minCost);
+
+    List<Product> findByNameContainingAndCostLessThan(String name, Double maxCost);
+
+    List<Product> findAllByCostLessThan(Double maxCost);
+
+    List<Product> findByNameContainingAndCostBetween(String name, Double minCost, Double maxCost);
+
+    List<Product> findAllByCostBetween(Double minCost, Double maxCost);
+
     Product getProductById(Long id);
+
 }

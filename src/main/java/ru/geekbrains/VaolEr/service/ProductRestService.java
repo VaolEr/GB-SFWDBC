@@ -23,6 +23,18 @@ public class ProductRestService {
                 : productsRepository.findAll();
     }
 
+    public List<Product> getWitMoreThanMinCost(String name, Double minCost){
+        return hasText(name) ? productsRepository.findByNameContainingAndCostGreaterThan(name, minCost) : productsRepository.findAllByCostGreaterThan(minCost);
+    }
+
+    public List<Product> getWitLessThanMaxCost(String name, Double maxCost){
+        return hasText(name) ? productsRepository.findByNameContainingAndCostLessThan(name, maxCost) : productsRepository.findAllByCostLessThan(maxCost);
+    }
+
+    public List<Product> getWitCostBetweenMinAndMax(String name, Double minCost, Double maxCost){
+        return hasText(name) ? productsRepository.findByNameContainingAndCostBetween(name, minCost, maxCost) : productsRepository.findAllByCostBetween(minCost, maxCost);
+    }
+
     public Product getById(Long id) throws NotFoundException {
         //тут по-хорошему нужно ещё сделать проверку на наличие данных в базе
         return productsRepository.findById(id).orElseThrow(() -> new NotFoundException("Not found entity with"));

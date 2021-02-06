@@ -30,10 +30,37 @@ public class ProductsRestController {
 
     @GetMapping
     @Operation(summary = "Get list of all products or list of products where product name contains [name]")
-    public RestResponseTo<List<ProductTo>> getAllOrByName(
-            @RequestParam(required = false) String name) {
+    public RestResponseTo<List<ProductTo>> getAllOrByName(@RequestParam(required = false) String name) {
         return new RestResponseTo<>(
                 HttpStatus.OK.toString(), null, toProductTos(productRestService.get(name))
+        );
+    }
+
+    @GetMapping(path = "/moreThan/{minCost}")
+    @Operation(summary = "Get list of all products or list of products where product name contains [name] and cost greater than [minCost]")
+    public RestResponseTo<List<ProductTo>> getAllOrByNameWithMoreThanMinCost(@RequestParam(required = false) String name,
+                                                          @PathVariable Double minCost) {
+        return new RestResponseTo<>(
+                HttpStatus.OK.toString(), null, toProductTos(productRestService.getWitMoreThanMinCost(name, minCost))
+        );
+    }
+
+    @GetMapping(path = "/lessThan/{maxCost}")
+    @Operation(summary = "Get list of all products or list of products where product name contains [name] and cost less than [maxCost]")
+    public RestResponseTo<List<ProductTo>> getAllOrByNameWithLessThanMaxCost(@RequestParam(required = false) String name,
+                                                          @PathVariable Double maxCost) {
+        return new RestResponseTo<>(
+                HttpStatus.OK.toString(), null, toProductTos(productRestService.getWitLessThanMaxCost(name, maxCost))
+        );
+    }
+
+    @GetMapping(path = "/costBetween/{minCost}&{maxCost}")
+    @Operation(summary = "Get list of all products or list of products where product name contains [name] and cost in range [minCost] & [maxCost]")
+    public RestResponseTo<List<ProductTo>> getAllOrByNameWithLessThanMaxCost(@RequestParam(required = false) String name,
+                                                                             @PathVariable Double minCost,
+                                                                             @PathVariable Double maxCost) {
+        return new RestResponseTo<>(
+                HttpStatus.OK.toString(), null, toProductTos(productRestService.getWitCostBetweenMinAndMax(name, minCost, maxCost))
         );
     }
 
@@ -44,6 +71,7 @@ public class ProductsRestController {
                 HttpStatus.OK.toString(), null, toProductTo(productRestService.getById(id))
         );
     }
+
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
     @Operation(summary = "Create new product")
