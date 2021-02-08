@@ -7,15 +7,17 @@ import java.util.Map;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.geekbrains.VaolEr.model.Product;
 
+//@Service
 @Transactional(readOnly = true)
 public interface ProductsRepository extends JpaRepository<Product, Long> {
 
     //In this class we are work with DB
 
-    //List<Product> getAllProducts();
+    //List<Product> findAll();
 
     List<Product> findByNameContaining(String name);
 

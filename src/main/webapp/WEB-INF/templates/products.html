@@ -9,8 +9,10 @@
     <table>
         <thead>
         <tr>
+          <th> Id </th>
           <th> Name </th>
           <th> Cost </th>
+          <th> Action </th>
         </tr>
         </thead>
         <tbody>
@@ -18,8 +20,15 @@
           <td colspan="2"> No Products Available </td>
         </tr>
         <tr th:each="product : ${products}">
-          <td><span th:text="${product.name}"> Name </span></td>
-          <td><span th:text="${product.cost}"> Cost </span></td>
+              <td><span th:text="${product.id}"> Id </span></td>
+              <td><span th:text="${product.name}"> Name </span></td>
+              <td><span th:text="${product.cost}"> Cost </span></td>
+              <td>
+                  <form action="#" th:action="@{products/delete}" method="post">
+                    <input type="hidden" name="id" th:value="${product.id}"/>
+                    <button type="submit" class="deletebutton" value="Delete">Delete</button>
+                  </form>
+              </td>
         </tr>
         </tbody>
     </table>

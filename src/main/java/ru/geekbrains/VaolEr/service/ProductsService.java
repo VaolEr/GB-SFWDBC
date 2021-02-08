@@ -6,7 +6,12 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.PostMapping;
 import ru.geekbrains.VaolEr.model.Product;
 import ru.geekbrains.VaolEr.repository.ProductsRepository;
 
@@ -15,6 +20,8 @@ import ru.geekbrains.VaolEr.repository.ProductsRepository;
 public class ProductsService {
 
     //private final ProductsRepository productsRepository;
+
+    private final ProductsRepository productsRepository;
 
     public static Map<Long, Product> products = new HashMap<>();
 
@@ -47,5 +54,27 @@ public class ProductsService {
         int productsCount = products.size();
         product.setId((long)++productsCount);
         products.put(product.getId(),product);
+    }
+
+
+
+    public Page<Product> findPaginated(Pageable pageable) {
+        List<Product> products8 = productsRepository.findAll();
+        int pageSize = pageable.getPageSize();
+        int currentPage = pageable.getPageNumber();
+        int startItem = currentPage * pageSize;
+        List<Product> list;
+
+        if (products8.size() < startItem) {
+            list = Collections.emptyList();
+        } else {
+            int toIndex = Math.min(startItem + pageSize, products8.size());
+            list = products8.subList(startItem, toIndex);
+        }
+
+        Page<Product> productPage
+                = new PageImpl<Product>(list, PageRequest.of(currentPage, pageSize), products8.size());
+
+        return productPage;
     }
 }
