@@ -14,3 +14,7 @@ databaseChangeLog:
   # Add 20 products to products tables
   - include:
       file: db/changelog/data/2021-02-05-add-20-products-entities-to-products.sql
+
+  # Create Customers table
+  - include:
+      file: db/changelog/shema/2021-02-14-create-customers-table.sql
