@@ -20,17 +20,14 @@ public class Customer {
     @Column(name = "id", nullable = false)
     String id;
 
-    @NotNull
     @NotBlank
     @Column(name = "first_name", nullable = false)
     String firstName;
 
-    @NotNull
     @NotBlank
     @Column(name = "lastName", nullable = false)
     String lastName;
 
-    @NotNull
     @NotBlank
     @Column(name = "city", nullable = false)
     String city;

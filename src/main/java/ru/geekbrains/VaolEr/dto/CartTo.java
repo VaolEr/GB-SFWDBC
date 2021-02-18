@@ -6,27 +6,25 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+
 
 @Data
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@Schema(description = "Entity: Product")
-public class ProductTo {
+@Schema(description = "Entity: Cart")
+public class CartTo {
 
     //This class created for transfer model to JSON
 
-    @Schema(description = "Identifier", example = "1")
+    @Schema(description = "Cart id", example = "1")
     Long id;
 
-    @NotBlank
-    @Schema(description = "Product name", example = "Prod1")
-    String name;
+    @NotNull
+    BuyerTo buyerTo;
 
     @NotNull
-    @Schema(description = "Product cost", example = "100")
-    Double cost;
+    ProductTo productTo;
 
 }

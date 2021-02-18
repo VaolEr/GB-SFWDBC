@@ -13,20 +13,13 @@ import javax.validation.constraints.NotNull;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@Schema(description = "Entity: Product")
-public class ProductTo {
+@Schema(description = "Entity: Buyer")
+public class BuyerTo {
 
-    //This class created for transfer model to JSON
-
-    @Schema(description = "Identifier", example = "1")
+    @NotNull
     Long id;
 
     @NotBlank
-    @Schema(description = "Product name", example = "Prod1")
     String name;
-
-    @NotNull
-    @Schema(description = "Product cost", example = "100")
-    Double cost;
 
 }

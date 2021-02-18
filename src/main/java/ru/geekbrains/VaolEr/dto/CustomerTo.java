@@ -29,17 +29,15 @@ public class CustomerTo {
     @Schema(description = "UUID", example = "1")
     String id;
 
-    @NotNull
     @NotBlank
     @Schema(description = "Customer first name", example = "Jhon")
     String firstName;
 
-    @NotNull
     @NotBlank
     @Schema(description = "Customer last name", example = "Doe")
     String lastName;
 
-    @NotNull
+    @NotBlank
     @Schema(description = "Customer's city", example = "City")
     String city;
 }
