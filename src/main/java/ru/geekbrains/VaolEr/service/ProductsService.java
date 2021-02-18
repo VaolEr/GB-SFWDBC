@@ -16,17 +16,17 @@ public class ProductsService {
 
     //private final ProductsRepository productsRepository;
 
-    public static Map<Integer, Product> products = new HashMap<>();
+    public static Map<Long, Product> products = new HashMap<>();
 
     static {
         Product product1 = new Product();
-        product1.setId(0);
+        product1.setId(0L);
         product1.setName("Product 1");
         product1.setCost(22.50);
         products.put(product1.getId(), product1);
 
         Product product2 = new Product();
-        product2.setId(1);
+        product2.setId(1L);
         product2.setName("Product 2");
         product2.setCost(42.50);
         products.put(product2.getId(), product2);
@@ -45,7 +45,7 @@ public class ProductsService {
 
     public void save(Product product){
         int productsCount = products.size();
-        product.setId(++productsCount);
+        product.setId((long)++productsCount);
         products.put(product.getId(),product);
     }
 }

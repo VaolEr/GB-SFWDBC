@@ -1,4 +1,4 @@
 databaseChangeLog:
   # DB schema initialization
   - include:
-      file: db/changelog/shema/2021-01-14-blank.sql
+      file: db/changelog/shema/2021-01-14-create_products_table.sql

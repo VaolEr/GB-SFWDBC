@@ -18,6 +18,8 @@
 	<properties>
 		<java.version>11</java.version>
 		<thymeleaf.version>3.0.11.RELEASE</thymeleaf.version>
+		<hibernate.version>5.4.27.Final</hibernate.version>
+		<postgresql.version>42.2.18</postgresql.version>
 	</properties>
 
 	<dependencies>
@@ -54,11 +56,22 @@
 			<groupId>org.liquibase</groupId>
 			<artifactId>liquibase-core</artifactId>
 		</dependency>
+<!--		<dependency>-->
+<!--			<groupId>mysql</groupId>-->
+<!--			<artifactId>mysql-connector-java</artifactId>-->
+<!--			<scope>runtime</scope>-->
+<!--		</dependency>-->
 		<dependency>
-			<groupId>mysql</groupId>
-			<artifactId>mysql-connector-java</artifactId>
-			<scope>runtime</scope>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-core</artifactId>
+			<version>${hibernate.version}</version>
 		</dependency>
+		<dependency>
+			<groupId>org.postgresql</groupId>
+			<artifactId>postgresql</artifactId>
+			<version>${postgresql.version}</version>
+		</dependency>
+
 
 		<!-- JSON -->
 		<dependency>
